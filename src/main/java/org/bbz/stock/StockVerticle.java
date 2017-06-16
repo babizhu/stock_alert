@@ -77,6 +77,7 @@ public class StockVerticle extends AbstractVerticle{
         mail.setSubject( "前方高能" );
     }
 
+    @SuppressWarnings("unused")
     private void run( Long aLong ){
         List<Future> futures = new ArrayList<>();
         for( String stockId : stockInfo.getStocksMap().keySet() ) {
@@ -90,38 +91,40 @@ public class StockVerticle extends AbstractVerticle{
             for( float v : list ) {
                 worth += v;
             }
-
-            log.info( worth + "+" + stockInfo.getCash() + "=" + (worth + stockInfo.getCash()) + "<" + alert );
+            String text = "股票市值【"+worth + "】 + 现金【" + stockInfo.getCash() + "】 = " + (worth + stockInfo.getCash()) + "<" + alert;
+            log.info( text );
             if( worth + stockInfo.getCash() < alert ) {
-                alert();
+                alert(text);
             }
         } );
     }
 
     /**
      * 股票市值加上现金低于报警值，发邮件报警
+     * @param text
      */
-    private void alert(){
+    private void alert( String text ){
         log.info( "开始发送邮件" );
+        mail.setText( text );
         mailClient.sendMail( mail, res -> {
             if( res.succeeded() ) {
                 log.info( res.result().toString() );
             } else {
                 res.cause().printStackTrace();
             }
+            mail.setText( "" );
+
         } );
     }
 
     private Future<Float> getStockPrice( String stockId ){
         final Future<Float> future = Future.future();
         String requestUrl = "/q=s_" + stockId;
-        httpClient.getNow( 80, "qt.gtimg.cn", requestUrl, response -> {
-            response.bodyHandler( body -> {
-                String resp = body.toString( Charset.forName( "gb2312" ) );
+        httpClient.getNow( 80, "qt.gtimg.cn", requestUrl, response -> response.bodyHandler( body -> {
+            String resp = body.toString( Charset.forName( "gb2312" ) );
 //                System.out.println( resp );
-                future.complete( parseResponse( resp ) * stockInfo.getStocksMap().get( stockId ) );
-            } );
-        } );
+            future.complete( parseResponse( resp ) * stockInfo.getStocksMap().get( stockId ) );
+        } ) );
         return future;
     }
 
