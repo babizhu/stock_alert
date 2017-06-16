@@ -1,0 +1,8 @@
+{
+  "stocks"      : "sh600888,100|sh600887,0",
+  "cash"        : 200.56,
+  "alert"       : 1000,
+  "mail_user"   : "185938@qq.com",
+  "mail_pass"   : "bmnwmvgjbppqbica",
+  "mail_recv"   : "185938@qq.com"
+}

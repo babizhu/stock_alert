@@ -29,5 +29,10 @@
         <version>1.16.16</version>
         <scope>provided</scope>
     </dependency>
+    <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-mail-client</artifactId>
+        <version>3.4.1</version>
+    </dependency>
 </dependencies>
 </project>

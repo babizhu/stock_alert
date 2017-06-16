@@ -11,7 +11,7 @@ import java.util.Map;
 @Data
 public class StockInfo{
     Map<String, Integer>    stocksMap;
-    int                     cash;
+    float                   cash;
 
 //    public int getAllWorth(){
 //        int worth = 0;
