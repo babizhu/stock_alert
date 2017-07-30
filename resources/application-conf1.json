@@ -1,0 +1,10 @@
+{
+  "port"        : 81,
+  "host"        :"116.62.19.252",
+  "uri"         : "/Invoice/searchInvoiceTimingOfTodayView.json",
+  "error_count" : 1,
+  "mail_user"   : "185938@qq.com",
+  "mail_pass"   : "bmnwmvgjbppqbica",
+  "mail_recv"   : "185938@qq.com",
+  "mail_cc"   : "185938@qq.com"
+}
